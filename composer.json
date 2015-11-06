@@ -1,0 +1,21 @@
+{
+  "name": "dez-php/phalcon-auth",
+  "description": "Auth Component for Phalcon 2 Framework",
+  "keywords": ["php phalcon","phalcon","auth","phalcon-auth"],
+  "authors": [
+    {
+      "name": "Ivan Gontarenko",
+      "email": "stewie.dev@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "type": "library",
+  "require": {
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhalconDez\\Auth\\": "src/Auth"
+    }
+  }
+}
