@@ -28,10 +28,30 @@ $container->set('auth', function(){
     return $auth;
 });
 
+$container->set('cookies', function () {
+    $cookies = new \Phalcon\Http\Response\Cookies();
+    $cookies->useEncryption(false);
+    return $cookies;
+});
+
+$container->setShared('session', function () {
+    $session = new \Phalcon\Session\Adapter\Files();
+    $session->setName( 'phalcon_session' );
+    $session->start();
+    return $session;
+});
+
 $container->set('crypt', function () {
     $crypt = new \Phalcon\Crypt();
-    $crypt->setKey('%31.1e$i86e$f!8jz');
+    $crypt->setMode(MCRYPT_MODE_CFB);
+    $crypt->setKey('%31.1e$i86e$f!8j');
     return $crypt;
+});
+
+$container->set('security', function(){
+    $security = new \Phalcon\Security();
+    $security->setWorkFactor(12);
+    return $security;
 }, true);
 
 $container->set('db', function(){
@@ -45,6 +65,8 @@ $container->set('db', function(){
 
 $app        = new \Phalcon\Mvc\Micro();
 $app->setDI($container);
+
+$app->session->start();
 
 $app->get('/', function() use ($container, $app){
 

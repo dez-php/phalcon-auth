@@ -40,9 +40,12 @@
          */
         public function initialize()
         {
+            var_dump(
+                $_SESSION
+            );
+
             if( $this->cookies->has($this->cookieKey()) ) {
                 $cookieToken    = $this->cookies->get($this->cookieKey());
-
                 $sessionModel   = $this->getSessionModel()->findFirst([
                     'auth_hash = :hash',
                     'bind'  => [ 'hash' => $this->makeHash( $cookieToken ) ]
