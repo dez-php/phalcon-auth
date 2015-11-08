@@ -186,8 +186,7 @@
          * @return bool
          */
         public function isGuest() {
-            $userModel  = $this->getUser();
-            return ! $userModel;
+            return $this->getUser()->getId() == 0;
         }
 
         /**
