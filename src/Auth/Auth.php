@@ -4,6 +4,7 @@
 
     use Phalcon\Mvc\User\Component;
     use Phalcon\Mvc\Model as PhalconModel;
+    use PhalconDez\Auth\Model\Credentials as CredentialsModel;
 
     class Auth extends Component {
 
@@ -161,7 +162,7 @@
         }
 
         /**
-         * @return PhalconModel
+         * @return CredentialsModel
          */
         public function getUser()
         {

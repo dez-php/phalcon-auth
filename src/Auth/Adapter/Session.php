@@ -40,15 +40,13 @@
          */
         public function initialize()
         {
-            var_dump(
-                $_SESSION
-            );
-
             if( $this->cookies->has($this->cookieKey()) ) {
+
                 $cookieToken    = $this->cookies->get($this->cookieKey());
+
                 $sessionModel   = $this->getSessionModel()->findFirst([
-                    'auth_hash = :hash',
-                    'bind'  => [ 'hash' => $this->makeHash( $cookieToken ) ]
+                    'auth_hash = :hash:',
+                    'bind'  => [ 'hash' => $this->makeHash( (string) $cookieToken ) ]
                 ]);
 
                 if( $sessionModel !== false ) {
@@ -69,7 +67,10 @@
 
         public function createCredentials()
         {
-            $credentials    = $this->getCredentialsModel()
+            $credentials    = clone $this->getCredentialsModel();
+            unset($credentials->{'id'});
+
+            $credentials
                 ->setEmail($this->getEmail())
                 ->setPassword($this->getPasswordHash())
                 ->setCreatedAt((new \DateTime())->format('Y-m-d H:i:s'))

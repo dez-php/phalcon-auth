@@ -39,7 +39,7 @@
          */
         protected function cookieKey()
         {
-            return 'phalcon-auth.'.UUID::v5(self::SALT);
+            return 'phalcon-auth-'.UUID::v5(self::SALT);
         }
 
         /**
