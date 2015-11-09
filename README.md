@@ -90,3 +90,7 @@ if($auth->isUser() === true){
     echo "Hello, {$userModel->getEmail()}. You was registered at {$userModel->getCreatedAt()}";
 }
 ```
+
+#Issues and pull-request
+
+####I will be glad of your criticism, tasks, bugs and pull-request.
