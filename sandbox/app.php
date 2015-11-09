@@ -77,6 +77,8 @@ $app->get('/', function() use ($container, $app){
     /** @var \PhalconDez\Auth\Auth $auth */
     $auth   = $container->get('auth');
 
+
+
     if( $app->request->get( 'auth' ) > 0 ) {
         $auth->authenticate('mail@mail.com', '123qwe');
     }

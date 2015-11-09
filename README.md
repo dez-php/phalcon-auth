@@ -34,9 +34,17 @@ $container->set('auth', function(){
 });
 ```
 
-and when fetch auth from container
+and then fetch auth from container
 
 ```php
 /** @var \PhalconDez\Auth\Auth $auth */
 $auth   = $container->get('auth');
+```
+
+verify password
+
+```php
+if($auth->isUser() && $auth->getAdapter()->verifyPassword('qwerty') === true){
+    echo 'Password is corrected';
+}
 ```
