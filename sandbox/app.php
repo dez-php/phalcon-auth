@@ -77,7 +77,15 @@ $app->get('/', function() use ($container, $app){
     /** @var \PhalconDez\Auth\Auth $auth */
     $auth   = $container->get('auth');
 
+    $email      = 'test@gmail.com';
+    $password   = 'qwerty';
 
+    try{
+        $auth->authenticate($email, $password);
+    }catch (\Exception $e){
+        $auth->create($email, $password);
+        $container->get('response')->redirect('auth-page');
+    }
 
     if( $app->request->get( 'auth' ) > 0 ) {
         $auth->authenticate('mail@mail.com', '123qwe');

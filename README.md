@@ -41,10 +41,52 @@ and then fetch auth from container
 $auth   = $container->get('auth');
 ```
 
+authorization
+
+```php
+try{
+    $auth->authenticate('test@gmail.com', 'qwerty');
+}catch (\Exception $e){
+    echo "You have some errors: {$e->getMessage()}";
+}
+```
+
+creating new credentials
+
+```php
+try{
+    $auth->authenticate($email, $password);
+}catch (\Exception $e){
+    $auth->create($email, $password);
+    $container->get('response')->redirect('auth-page');
+}
+```
+
 verify password
 
 ```php
 if($auth->isUser() && $auth->getAdapter()->verifyPassword('qwerty') === true){
     echo 'Password is corrected';
+}
+```
+
+check user user authorization
+
+```php
+if($auth->isGuest() === true){
+    echo 'You are non-authorized user';
+}
+
+if($auth->isUser() === true){
+    echo 'You are authorized user';
+}
+```
+
+get some authorized user data
+
+```php
+if($auth->isUser() === true){
+    $userModel  = $auth->getUser();
+    echo "Hello, {$userModel->getEmail()}. You was registered at {$userModel->getCreatedAt()}";
 }
 ```
