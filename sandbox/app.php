@@ -10,21 +10,25 @@ ini_set('display_errors', 'On');
 include_once '../vendor/autoload.php';
 
 $container  = new \Phalcon\Di\FactoryDefault();
+
 $container->set('auth', function(){
 
     $auth   = new \PhalconDez\Auth\Auth(
         // Adapter
         new \PhalconDez\Auth\Adapter\Session()
     );
+
     $auth->setCredentialsModel(
         // Model for credentials
         new \PhalconDez\Auth\Model\Credentials()
     );
+
     $auth->setSessionModel(
         // Model for sessions
         new \PhalconDez\Auth\Model\Session()
     );
     $auth->initialize();
+
     return $auth;
 });
 
