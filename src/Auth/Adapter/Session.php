@@ -58,6 +58,27 @@
         }
 
         /**
+         * @return $this
+         */
+        public function logout()
+        {
+            $cookieToken    = $this->cookies->get($this->cookieKey());
+
+            $sessionModel   = $this->getSessionModel()->findFirst([
+                'auth_hash = :hash:',
+                'bind'  => [ 'hash' => $this->makeHash( (string) $cookieToken ) ]
+            ]);
+
+            $cookieToken->delete();
+
+            if( $sessionModel !== false ) {
+                $sessionModel->delete();
+            }
+
+            return $this;
+        }
+
+        /**
          * @return \DateTime
          */
         protected function expiryDate()
@@ -65,6 +86,9 @@
             return (new \DateTime('+30 days'));
         }
 
+        /**
+         * @return $this
+         */
         public function createCredentials()
         {
             $credentials    = clone $this->getCredentialsModel();

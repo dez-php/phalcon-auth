@@ -39,6 +39,7 @@
          */
         public function logout()
         {
+            $this->getAdapter()->logout();
             return $this;
         }
 

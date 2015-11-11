@@ -174,4 +174,9 @@
          */
         abstract public function createCredentials();
 
+        /**
+         * @return $this
+         */
+        abstract public function logout();
+
     }
