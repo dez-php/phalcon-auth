@@ -62,19 +62,8 @@
          */
         public function logout()
         {
-            $cookieToken    = $this->cookies->get($this->cookieKey());
-
-            $sessionModel   = $this->getSessionModel()->findFirst([
-                'auth_hash = :hash:',
-                'bind'  => [ 'hash' => $this->makeHash( (string) $cookieToken ) ]
-            ]);
-
-            $cookieToken->delete();
-
-            if( $sessionModel !== false ) {
-                $sessionModel->delete();
-            }
-
+            $this->cookies->get($this->cookieKey())->delete();
+            $this->getSessionModel()->delete();
             return $this;
         }
 
