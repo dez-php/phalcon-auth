@@ -10,21 +10,25 @@ ini_set('display_errors', 'On');
 include_once '../vendor/autoload.php';
 
 $container  = new \Phalcon\Di\FactoryDefault();
+
 $container->set('auth', function(){
 
     $auth   = new \PhalconDez\Auth\Auth(
         // Adapter
         new \PhalconDez\Auth\Adapter\Session()
     );
+
     $auth->setCredentialsModel(
         // Model for credentials
         new \PhalconDez\Auth\Model\Credentials()
     );
+
     $auth->setSessionModel(
         // Model for sessions
         new \PhalconDez\Auth\Model\Session()
     );
     $auth->initialize();
+
     return $auth;
 });
 
@@ -72,6 +76,16 @@ $app->get('/', function() use ($container, $app){
 
     /** @var \PhalconDez\Auth\Auth $auth */
     $auth   = $container->get('auth');
+
+    $email      = 'test@gmail.com';
+    $password   = 'qwerty';
+
+    try{
+        $auth->authenticate($email, $password);
+    }catch (\Exception $e){
+        $auth->create($email, $password);
+        $container->get('response')->redirect('auth-page');
+    }
 
     if( $app->request->get( 'auth' ) > 0 ) {
         $auth->authenticate('mail@mail.com', '123qwe');
