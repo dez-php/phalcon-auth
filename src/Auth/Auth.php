@@ -201,7 +201,7 @@
          * @return int
          */
         public function id() {
-            return $this->isUser() ? $this->getUser()->id() : 0;
+            return $this->isUser() ? $this->getUser()->getId() : 0;
         }
 
     }
