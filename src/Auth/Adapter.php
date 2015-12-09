@@ -57,7 +57,7 @@
          */
         public function makeHash($string)
         {
-            return UUID::v5($this->uniqueToken().self::SALT.$string.self::SALT);
+            return UUID::v5(self::SALT.$string.self::SALT);
         }
 
         /**
