@@ -13,6 +13,8 @@
 
         protected $auth;
 
+        protected $name = 'session';
+
         protected $email;
 
         protected $password;
@@ -158,6 +160,11 @@
             $this->sessionModel = $sessionModel;
             return $this;
         }
+
+        /**
+         * @return string
+         */
+        abstract public function name();
 
         /**
          * @return $this

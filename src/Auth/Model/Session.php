@@ -19,6 +19,11 @@ class Session extends PhalconModel
      */
     public $auth_id;
 
+    /**
+     *
+     * @var string
+     */
+    public $adapter;
 
     /**
      *
@@ -74,6 +79,24 @@ class Session extends PhalconModel
     public function getAuthId()
     {
         return $this->auth_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAdapter()
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * @param string $adapter
+     * @return $this
+     */
+    public function setAdapter($adapter)
+    {
+        $this->adapter = $adapter;
+        return $this;
     }
 
     /**

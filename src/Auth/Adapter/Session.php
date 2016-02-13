@@ -45,8 +45,11 @@
                 $cookieToken    = $this->cookies->get($this->cookieKey());
 
                 $sessionModel   = $this->getSessionModel()->findFirst([
-                    'auth_hash = :hash:',
-                    'bind'  => [ 'hash' => $this->makeHash( (string) $cookieToken ) ]
+                    'auth_hash = :hash: AND adapter = :adapter:',
+                    'bind'  => [
+                        'hash' => $this->makeHash( (string) $cookieToken ),
+                        'adapter' => $this->name(),
+                    ]
                 ]);
 
                 if( $sessionModel !== false ) {
@@ -116,6 +119,7 @@
 
             $sessionModel   = $this->getSessionModel()
                 ->setAuthId($this->getCredentialsModel()->getId())
+                ->setAdapter($this->name())
                 ->setAuthHash($this->makeHash($cookieToken))
                 ->setUserHash($this->uniqueToken())
                 ->setUserIp(ip2long($this->request->getClientAddress(true)))
@@ -128,5 +132,14 @@
 
             return $sessionModel;
         }
+
+        /**
+         * @return string
+         */
+        public function name()
+        {
+            return 'session';
+        }
+
 
     }
