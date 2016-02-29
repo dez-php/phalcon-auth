@@ -35,6 +35,17 @@
         }
 
         /**
+         * @param $email
+         * @return $this
+         */
+        public function fakeAuthenticate($email)
+        {
+            $this->getAdapter()->setEmail($email);
+            $this->getAdapter()->fakeAuthenticate();
+            return $this;
+        }
+
+        /**
          * @return $this
          */
         public function logout()

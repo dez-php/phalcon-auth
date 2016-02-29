@@ -37,6 +37,30 @@
 
         /**
          * @return $this
+         * @throws InvalidDataException
+         * @throws RuntimeErrorException
+         */
+        public function fakeAuthenticate()
+        {
+            $credentials    = $this->getCredentialsModel()->findFirst([
+                'email = :email:',
+                'bind'  => [
+                    'email'     => $this->getEmail(),
+                ]
+            ]);
+
+            if( $credentials !== false ) {
+                $this->setCredentialsModel($credentials);
+                $this->setSessionModel($this->makeSession());
+            } else {
+                throw new InvalidDataException( "Invalid password or email" );
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return $this
          */
         public function initialize()
         {
@@ -91,7 +115,7 @@
                 ->setPassword($this->getPasswordHash())
                 ->setCreatedAt((new \DateTime())->format('Y-m-d H:i:s'))
                 ->setUpdatedAt((new \DateTime())->format('Y-m-d H:i:s'))
-                ->setStatus('active');
+                ->setStatus('locked');
 
             $credentials->save();
             $this->setCredentialsModel($credentials);

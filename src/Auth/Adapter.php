@@ -174,6 +174,11 @@
         /**
          * @return $this
          */
+        abstract public function fakeAuthenticate();
+
+        /**
+         * @return $this
+         */
         abstract public function initialize();
 
         /**
