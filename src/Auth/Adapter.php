@@ -67,7 +67,7 @@
          */
         public function getPasswordHash()
         {
-            return $this->makeHash($this->getPassword());
+            return $this->getCredentialsModel()->getPassword();
         }
 
         /**
