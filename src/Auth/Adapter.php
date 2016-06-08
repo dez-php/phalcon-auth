@@ -50,7 +50,7 @@
          */
         public function verifyPassword($password)
         {
-            return ( $this->makeHash($password) === $this->getPasswordHash() );
+            return ( $this->makeHash($password) === $this->getCredentialsModel()->getPassword() );
         }
 
         /**
@@ -67,7 +67,7 @@
          */
         public function getPasswordHash()
         {
-            return $this->getCredentialsModel()->getPassword();
+            return $this->makeHash($this->getPassword());
         }
 
         /**
